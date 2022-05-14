@@ -1,0 +1,40 @@
+---
+- name: Installing odoo from linux source
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update packages
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Running nodejs shellscript
+      ansible.builtin.command: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+      become: yes
+      args:
+        chdir: /home/bharadwaj/
+
+    - name: Installing nodejs
+      ansible.builtin.apt:
+      pkg:
+        - nodejs
+
+    - name: Installing essential packages
+      ansible.builtin.apt:
+      pkg:
+        - build-essential
+
+    - name: Installing additional dependencies
+      community.general.npm:
+        name: forever -g
+        path: /home/bharadwaj/
+
+    - name: Installing additional dependencies
+      community.general.npm:
+        name: apidoc -g
+        path: /home/bharadwaj/
+
+    
+
+    
+
+    
